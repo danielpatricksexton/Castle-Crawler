@@ -5,61 +5,75 @@ from random import randrange
 import random
 
 class Person:
-    def __init__(self, name, hp, mp, atk):
-        self.name = name
-        self.hp = hp
+    def __init__(self, name, hp, mp, atk, magic):
         self.maxhp = hp
+        self.hp = hp
         self.maxmp = mp
         self.mp = mp
-        self.atk_high = atk + 10
-        self.atk_low = atk - 10
-        self.action = ["Physical Attack", "Magic"]
+        self.atk_high = atk + 15
+        self.atk_low = atk - 15
+        self.action = ["Attack", "Magic"]
         self.magic = magic
+        self.name = name
 
 
-    def stats(self):
-        print(self.name)
-        print(f"{self.hp}/{self.maxhp}")
-        print(f"{self.mp}/{self.maxmp}")
 
 
-    def generate_dmg(self):
-        dmg = random.randint(self.atk_low, self.atk_high)
+    def generate_atk_damage(self):
+        """
+        randomly generate an attack range within
+        atk_low and atk_high and return value
+        """
+        dmg = random.randrange(self.atk_low, self.atk_high)
         return dmg
 
 
-    def take_dmg(self, dmg):
+    def take_damage(self, dmg):
+        """
+        hp will decrease when player takes dampage
+        when hp drops below 0, it will = 0
+        """
         self.hp = self.hp - dmg
         if self.hp < 0:
             self.hp = 0
         return self.hp
 
 
-    def get_hp(self):
-        return self.hp
-
-
-    def get_maxhp(self):
-        return self.maxhp
-
-
     def choose_action(self):
-        index = 1
+        """
+        This method triggers a list of attack options
+        """
+        number = 1
         print("ACTIONS: ")
         for element in self.action:
-            print("{}. {}".format(index, element))
-            index = index + 1
+            print(f"{number}: {element}")
+            number = number + 1
 
-    def reduce_mp(self, used_mp):
-        self.mp = self.mp - used_mp
-        if self.mp < used_mp:
-            print("not enough Mana")
+
+    def stats(self):
+        """
+        maxhp will never be altered
+        """
+        print(self.name)
+        print(f"{self.hp}/{self.maxhp}")
+        print(f"{self.mp}/{self.maxmp}")
+
+
+
+    def reduce_mp(self, cost):
+        """
+        calculate and return new mp after magic attack
+        """
+        self.mp = self.mp - cost
         return self.mp
 
 
     def choose_magic(self):
-        index = 1
+        """
+        prints a list of magic attacks
+        """
+        number = 1
         print("Choose magic: ")
-        for element in self.magic_list:
-            print("{}. {}. {}.".format(index, element))
-            index = index + 1
+        for element in self.magic:
+            print(f"{number}. {element.name}")
+            number = number + 1

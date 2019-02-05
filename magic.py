@@ -14,5 +14,5 @@ class Magic:
         self.low_damage = damage - 15
 
     def generate_magic(self):
-        dmg = random.randrange(self.low_damage, self.high_damage)
-        return dmg
+        damage = random.randrange(self.low_damage, self.high_damage)
+        return damage
